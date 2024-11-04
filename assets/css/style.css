@@ -1,0 +1,41 @@
+/* styles.css */
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+#sidebar {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 100;
+  padding-top: 20px;
+  border-left: 1px solid #ddd;
+  background-color: #f8f9fa;
+}
+
+.sidebar-sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+}
+
+.breadcrumb {
+  background-color: transparent;
+  font-size: 14px;
+}
+
+.content-header h1 {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.content p {
+  font-size: 16px;
+}
+
+.navigation-buttons {
+  margin-top: 20px;
+}
+
