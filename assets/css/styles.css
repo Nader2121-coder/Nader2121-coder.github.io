@@ -1,0 +1,36 @@
+/* filepath: c:\Users\NADER\0.0.8\Nader2121\assets\css\styles.css */
+/* styles.css - carte de visite électronique simple et responsive */
+:root{
+  --bg1: linear-gradient(135deg,#0f172a 0%,#0b1f3b 100%);
+  --card-bg: rgba(255,255,255,0.06);
+  --accent: #ff6b6b;
+  --glass: rgba(255,255,255,0.04);
+  --text: #e6eef8;
+}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0;font-family:Inter,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg1);color:var(--text)}
+.page{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px}
+.card{width:340px;max-width:92vw;background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.02));border-radius:16px;padding:24px;box-shadow:0 6px 30px rgba(2,6,23,0.7);backdrop-filter: blur(6px);text-align:center}
+.avatar{width:120px;height:120px;margin:-72px auto 12px;position:relative;border-radius:50%;overflow:hidden;border:6px solid rgba(255,255,255,0.06);background:rgba(255,255,255,0.02);display:flex;align-items:center;justify-content:center}
+.avatar img{width:100%;height:100%;object-fit:cover;display:block;position:relative;z-index:2}
+.avatar-fallback{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;width:100%;height:100%;z-index:1;fill:#d1e4ff;opacity:0.95}
+.name{font-size:1.25rem;margin:6px 0 0}
+.title{margin:4px 0 18px;opacity:0.85;font-size:0.95rem}
+.contacts{display:flex;flex-direction:column;gap:10px;padding:6px}
+.contact{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;text-decoration:none;color:var(--text);background:var(--glass);transition:transform .12s ease,box-shadow .12s ease}
+.contact svg{width:22px;height:22px;flex:0 0 22px}
+.contact span{font-weight:600}
+.contact:hover{transform:translateY(-4px);box-shadow:0 8px 18px rgba(2,6,23,0.6)}
+/* platform colors */
+.contact[href*="instagram"]{background:linear-gradient(90deg,#ff9a9e,#fad0c4);color:#2b2b2b}
+.contact[href*="facebook"]{background:linear-gradient(90deg,#4c69ba,#3b5998)}
+.contact[href*="snapchat"]{background:linear-gradient(90deg,#fffc00,#ffd166);color:#111}
+.contact[href^="tel"]{background:linear-gradient(90deg,#5de7a6,#2ec4b6);color:#042c1f}
+.note{margin-top:14px;font-size:0.85rem;opacity:0.8}
+@media (min-width:600px){
+  .card{width:360px;padding:32px}
+  .contacts{flex-direction:column}
+}
+@media (max-width:420px){
+  .avatar{width:100px;height:100px;margin-top:-56px}
+}
