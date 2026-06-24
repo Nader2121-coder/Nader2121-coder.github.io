@@ -1,49 +1,738 @@
-<!doctype html>
-<html lang="fr">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Carte de visite électronique — Nader HAJ BRAHIM</title>
-    <link rel="stylesheet" href="./assets/css/styles.css" type="text/css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Will You Go On A Date With Me?</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            font-size: clamp(14px, 2.5vw, 18px);
+        }
+
+        body {
+            min-height: 100dvh;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 50%, #f48fb1 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            position: relative;
+            padding: 16px;
+        }
+
+        /* Floating hearts */
+        .heart {
+            position: absolute;
+            font-size: clamp(16px, 3vw, 24px);
+            opacity: 0.5;
+            animation: float-up linear infinite;
+            pointer-events: none;
+            z-index: 0;
+            will-change: transform;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) rotate(0deg) scale(0.4);
+                opacity: 0;
+            }
+            15% { opacity: 0.5; }
+            85% { opacity: 0.5; }
+            100% {
+                transform: translateY(-120px) rotate(720deg) scale(1.1);
+                opacity: 0;
+            }
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: clamp(20px, 5vw, 32px);
+            padding: clamp(28px, 6vw, 48px) clamp(20px, 5vw, 40px);
+            text-align: center;
+            box-shadow: 
+                0 20px 60px rgba(236, 64, 122, 0.12),
+                0 8px 25px rgba(0, 0, 0, 0.04);
+            width: 100%;
+            max-width: 420px;
+            position: relative;
+            z-index: 10;
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            animation: gentle-pulse 4s ease-in-out infinite;
+        }
+
+        @keyframes gentle-pulse {
+            0%, 100% { box-shadow: 0 20px 60px rgba(236, 64, 122, 0.12), 0 8px 25px rgba(0, 0, 0, 0.04); }
+            50% { box-shadow: 0 25px 70px rgba(236, 64, 122, 0.18), 0 10px 30px rgba(0, 0, 0, 0.06); }
+        }
+
+        .photo-container {
+            width: clamp(90px, 25vw, 120px);
+            height: clamp(90px, 25vw, 120px);
+            margin: 0 auto clamp(16px, 4vw, 24px);
+            border-radius: clamp(16px, 4vw, 24px);
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            position: relative;
+            background: #f5f5f5;
+            flex-shrink: 0;
+        }
+
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .photo-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f8bbd0, #f48fb1);
+            color: white;
+            font-size: clamp(36px, 10vw, 48px);
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .photo-placeholder:active {
+            transform: scale(0.95);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(22px, 5.5vw, 28px);
+            color: #4a148c;
+            margin-bottom: clamp(20px, 5vw, 32px);
+            line-height: 1.3;
+            font-weight: 700;
+        }
+
+        .flower {
+            color: #ec407a;
+        }
+
+        .buttons {
+            display: flex;
+            gap: clamp(10px, 3vw, 16px);
+            justify-content: center;
+            align-items: center;
+            margin-top: 8px;
+            position: relative;
+            min-height: clamp(50px, 12vw, 60px);
+        }
+
+        .btn {
+            padding: clamp(10px, 3vw, 14px) clamp(24px, 8vw, 36px);
+            border: none;
+            border-radius: 50px;
+            font-size: clamp(14px, 3.5vw, 16px);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.5px;
+            position: relative;
+            overflow: hidden;
+            touch-action: manipulation;
+            white-space: nowrap;
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, #f06292, #ec407a);
+            color: white;
+            box-shadow: 0 4px 15px rgba(236, 64, 122, 0.4);
+        }
+
+        .btn-yes:hover, .btn-yes:active {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 8px 25px rgba(236, 64, 122, 0.5);
+        }
+
+        .btn-no {
+            background: linear-gradient(135deg, #ba68c8, #9c27b0);
+            color: white;
+            box-shadow: 0 4px 15px rgba(156, 39, 176, 0.3);
+            position: absolute;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .btn-no .sparkle {
+            font-size: 12px;
+            margin-left: 4px;
+        }
+
+        /* Overlays */
+        .success-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(252, 228, 236, 0.96);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            padding: 16px;
+        }
+
+        .success-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .success-card {
+            background: white;
+            border-radius: clamp(20px, 5vw, 32px);
+            padding: clamp(28px, 6vw, 48px) clamp(20px, 5vw, 40px);
+            text-align: center;
+            width: 100%;
+            max-width: 420px;
+            box-shadow: 0 20px 60px rgba(236, 64, 122, 0.2);
+            transform: scale(0.85);
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .success-overlay.active .success-card {
+            transform: scale(1);
+        }
+
+        .success-icon {
+            font-size: clamp(48px, 12vw, 64px);
+            margin-bottom: clamp(12px, 3vw, 20px);
+            display: inline-block;
+            animation: bounce 1s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .success-card h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(24px, 6vw, 32px);
+            color: #4a148c;
+            margin-bottom: clamp(8px, 2vw, 12px);
+            line-height: 1.3;
+        }
+
+        .success-card p {
+            color: #666;
+            font-size: clamp(14px, 3.5vw, 16px);
+            margin-bottom: clamp(20px, 5vw, 28px);
+            line-height: 1.5;
+        }
+
+        .btn-okay {
+            background: linear-gradient(135deg, #f06292, #ec407a);
+            color: white;
+            padding: clamp(10px, 3vw, 14px) clamp(28px, 8vw, 40px);
+            border: none;
+            border-radius: 50px;
+            font-size: clamp(14px, 3.5vw, 16px);
+            font-weight: 600;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            box-shadow: 0 4px 15px rgba(236, 64, 122, 0.4);
+            transition: all 0.3s ease;
+            width: 100%;
+            touch-action: manipulation;
+        }
+
+        .btn-okay:hover, .btn-okay:active {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(236, 64, 122, 0.5);
+        }
+
+        /* Form inputs */
+        .form-group {
+            text-align: left;
+            margin: clamp(16px, 4vw, 24px) 0;
+        }
+
+        .form-group label {
+            display: block;
+            color: #666;
+            font-size: clamp(13px, 3vw, 14px);
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: clamp(10px, 3vw, 12px) clamp(12px, 3vw, 16px);
+            border: 2px solid #f8bbd0;
+            border-radius: 12px;
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(14px, 3.5vw, 15px);
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            background: white;
+            color: #4a148c;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            border-color: #ec407a;
+            box-shadow: 0 0 0 3px rgba(236, 64, 122, 0.1);
+        }
+
+        /* Activity grid */
+        .activity-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: clamp(8px, 2vw, 12px);
+            margin: clamp(16px, 4vw, 24px) 0;
+        }
+
+        .activity-option {
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid transparent;
+            border-radius: clamp(12px, 3vw, 16px);
+            padding: clamp(12px, 3vw, 16px) clamp(6px, 1.5vw, 10px);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            touch-action: manipulation;
+            text-align: center;
+        }
+
+        .activity-option:hover,
+        .activity-option:active {
+            border-color: #f48fb1;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 20px rgba(244, 143, 177, 0.2);
+        }
+
+        .activity-option.selected {
+            border-color: #ec407a;
+            background: rgba(236, 64, 122, 0.06);
+            box-shadow: 0 4px 15px rgba(236, 64, 122, 0.15);
+        }
+
+        .activity-option .activity-emoji {
+            font-size: clamp(28px, 7vw, 36px);
+            line-height: 1;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .activity-option .activity-name {
+            font-size: clamp(11px, 3vw, 13px);
+            color: #555;
+            font-weight: 500;
+            line-height: 1.3;
+            display: block;
+        }
+
+        /* Confetti */
+        .confetti {
+            position: fixed;
+            width: clamp(6px, 2vw, 10px);
+            height: clamp(6px, 2vw, 10px);
+            pointer-events: none;
+            animation: confetti-fall linear forwards;
+            z-index: 999;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20% { transform: translateX(-8px); }
+            40% { transform: translateX(8px); }
+            60% { transform: translateX(-6px); }
+            80% { transform: translateX(6px); }
+        }
+
+        .shake {
+            animation: shake 0.5s ease !important;
+        }
+
+        /* Landscape mobile fix */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .card {
+                padding: 20px;
+                max-width: 360px;
+            }
+            .photo-container {
+                width: 70px;
+                height: 70px;
+            }
+            h1 {
+                margin-bottom: 16px;
+            }
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            .heart, .success-icon, .card, .confetti {
+                animation: none !important;
+            }
+            .btn, .activity-option {
+                transition: none !important;
+            }
+        }
+
+        /* Custom scrollbar */
+        .success-card::-webkit-scrollbar {
+            width: 4px;
+        }
+        .success-card::-webkit-scrollbar-thumb {
+            background: #f8bbd0;
+            border-radius: 4px;
+        }
+
+        /* Final message */
+        .final-ps {
+            font-size: clamp(12px, 3vw, 13px);
+            color: #888;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .replit-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #ff6b35;
+            color: white;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: clamp(12px, 3vw, 13px);
+            font-weight: 600;
+            margin-top: 8px;
+        }
+    </style>
 </head>
 <body>
-<main class="page">
-    <section class="card">
-        <div class="avatar">
-            <img src="./assets/img/nader_photo.jpeg" alt="Photo de Nader HAJ BRAHIM" class="avatar-img">
-            <!-- fallback SVG si avatar.svg manquant -->
-            <svg class="avatar-fallback" viewBox="0 0 24 24" aria-hidden="true">
-                <path fill="#fff" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
-            </svg>
+
+    <!-- Floating hearts -->
+    <div id="hearts-container"></div>
+
+    <!-- Main Card -->
+    <div class="card" id="mainCard">
+        <div class="photo-container" id="photoContainer">
+            <div class="photo-placeholder" id="photoPlaceholder">🐶</div>
+            <img id="profilePhoto" alt="Profile photo" style="display: none;">
         </div>
-
-        <h1 class="name">Nader HAJ BRAHIM</h1>
-        <p class="title">Software Engineer / Ingénieur logiciel</p>
-
-        <div class="contacts">
-            <a class="contact" href="https://www.instagram.com/_nader_hb?igsh=MTJoaDV5NW52Njc5ZQ%3D%3D&utm_source=qr" target="_blank" rel="noopener noreferrer">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm5 6.5A4.5 4.5 0 1 1 7.5 13 4.5 4.5 0 0 1 12 8.5zm5.5-3A1.12 1.12 0 1 1 16.38 4.38 1.12 1.12 0 0 1 17.5 5.5zM12 15.5A3.5 3.5 0 1 0 8.5 12 3.5 3.5 0 0 0 12 15.5z"/></svg>
-                <span>Instagram</span>
-            </a>
-
-            <a class="contact" href="https://www.facebook.com/share/1ZNGCHTgrW/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 5 3.66 9.12 8.44 9.88v-6.99H7.9v-2.9h2.54V9.83c0-2.5 1.49-3.88 3.77-3.88 1.09 0 2.23.2 2.23.2v2.45h-1.25c-1.23 0-1.62.77-1.62 1.56v1.88h2.77l-.44 2.9h-2.33V22C18.34 21.12 22 17 22 12z"/></svg>
-                <span>Facebook</span>
-            </a>
-
-            <a class="contact" href="https://snapchat.com/t/t0SfXnUh" target="_blank" rel="noopener noreferrer">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2C7.03 2 3 6.03 3 11c0 3.88 2.57 7.16 6.13 8.22.43.12.74-.23.58-.63-.17-.41-.36-1.25-.43-1.53-.14-.64-.83-.88-.85-1.09-.03-.26.32-.2.45-.19.48.04 1 .33 1.36.67.6.58 1.35 1 2.45 1s1.85-.42 2.45-1c.36-.34.88-.63 1.36-.67.13-.01.48-.08.45.19-.02.21-.71.45-.85 1.09-.07.28-.26 1.12-.43 1.53-.16.4.15.75.58.63C18.43 18.16 21 14.88 21 11c0-4.97-4.03-9-9-9z"/></svg>
-                <span>Snapchat</span>
-            </a>
-
-            <a class="contact" href="tel:+21699546360">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.07 21 3 13.93 3 5a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.24.2 2.45.57 3.57.12.34.01.73-.24 1.01l-2.21 2.21z"/></svg>
-                <span>+216 99 546 360</span>
-            </a>
+        
+        <h1>
+            <span class="flower">🌸</span> Will you go on a date with me? <span class="flower">🌸</span>
+        </h1>
+        
+        <div class="buttons" id="buttonContainer">
+            <button class="btn btn-yes" id="yesBtn" onclick="handleYes()">
+                YES <span style="font-size: 0.85em;">♥</span>
+            </button>
+            <button class="btn btn-no" id="noBtn" 
+                onmouseenter="moveNoButton()" 
+                ontouchstart="moveNoButton(event)"
+                onclick="moveNoButton()">
+                no <span class="sparkle">✨</span>
+            </button>
         </div>
+    </div>
 
-        <p class="note">Excellence is not an act, but a habit 🌿</p>
-    </section>
-</main>
+    <!-- Success: WAIT YOU ACTUALLY SAID YES?? -->
+    <div class="success-overlay" id="successOverlay">
+        <div class="success-card">
+            <div class="success-icon">🌊</div>
+            <h2>WAIT YOU ACTUALLY SAID YES??</h2>
+            <p>I was so ready for you to say no 😭</p>
+            <button class="btn-okay" onclick="showDatePicker()" style="width: auto;">
+                okay okay! →
+            </button>
+        </div>
+    </div>
+
+    <!-- Date Picker -->
+    <div class="success-overlay" id="dateOverlay">
+        <div class="success-card" style="max-width: 380px;">
+            <div style="font-size: clamp(28px, 7vw, 32px); margin-bottom: clamp(10px, 2vw, 16px);">📅🐾</div>
+            <h2 style="font-size: clamp(20px, 5vw, 24px);">So... when are you free?</h2>
+            
+            <div class="form-group">
+                <label>Pick a Day 📅</label>
+                <input type="date" id="dateInput">
+            </div>
+            
+            <div class="form-group">
+                <label>What Time? ⏰</label>
+                <select id="timeInput">
+                    <option value="">Select a time...</option>
+                    <option value="morning">Morning ☕</option>
+                    <option value="lunch">Lunch 🍽️</option>
+                    <option value="afternoon">Afternoon 🌤️</option>
+                    <option value="evening">Evening 🌙</option>
+                    <option value="dinner">Dinner 🍷</option>
+                </select>
+            </div>
+            
+            <button class="btn-okay" onclick="showActivityPicker()">
+                set the date! ♥
+            </button>
+        </div>
+    </div>
+
+    <!-- Activity Picker -->
+    <div class="success-overlay" id="activityOverlay">
+        <div class="success-card" style="max-width: 400px;">
+            <h2 style="font-size: clamp(20px, 5vw, 24px);">What are we doing? ✨</h2>
+            <p style="color: #888; font-size: clamp(12px, 3vw, 14px);">pick your vibe</p>
+            
+            <div class="activity-grid">
+                <button class="activity-option" onclick="selectActivity(this, 'Walk by the sea')">
+                    <span class="activity-emoji">🌊</span>
+                    <span class="activity-name">Walk and talk by the sea</span>
+                </button>
+                <button class="activity-option" onclick="selectActivity(this, 'Coffee date')">
+                    <span class="activity-emoji">☕</span>
+                    <span class="activity-name">Coffee and good conversation</span>
+                </button>
+                <button class="activity-option" onclick="selectActivity(this, 'Ice cream stroll')">
+                    <span class="activity-emoji">🍦</span>
+                    <span class="activity-name">Ice cream and a stroll</span>
+                </button>
+                <button class="activity-option" onclick="selectActivity(this, 'Nice dinner')">
+                    <span class="activity-emoji">🍕</span>
+                    <span class="activity-name">Dinner at a nice place</span>
+                </button>
+                <button class="activity-option" onclick="selectActivity(this, 'Bowling and games')">
+                    <span class="activity-emoji">🎳</span>
+                    <span class="activity-name">Bowling and fun games</span>
+                </button>
+                <button class="activity-option" onclick="selectActivity(this, 'Movie night')">
+                    <span class="activity-emoji">🎬</span>
+                    <span class="activity-name">Movie night</span>
+                </button>
+                <button class="activity-option" onclick="selectActivity(this, 'Party / lounge')" style="grid-column: span 2;">
+                    <span class="activity-emoji">🎉</span>
+                    <span class="activity-name">Party / lounge</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Final Message -->
+    <div class="success-overlay" id="finalOverlay">
+        <div class="success-card">
+            <h2 style="font-size: clamp(18px, 4.5vw, 22px); line-height: 1.4;">
+                glad you didn't say no. be ready by 6, I'm coming to get you 🚗
+            </h2>
+            <p class="final-ps">
+                P.S. normal people text. I made a website on Replit, during lunch, for you.<br>no big deal.
+            </p>
+            <div style="font-size: clamp(18px, 4vw, 24px); margin: clamp(12px, 3vw, 16px) 0;">♥ ♥ ♥ ♥ ♥</div>
+            <div class="replit-badge">
+                <span>⚡</span> Built with Replit
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== Floating Hearts =====
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            const hearts = ['🌸', '💖', '💕', '💗', '♥', '🌺', '✨'];
+            heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+            heart.style.left = Math.random() * 100 + '%';
+            heart.style.fontSize = (Math.random() * 16 + 14) + 'px';
+            heart.style.animationDuration = (Math.random() * 5 + 7) + 's';
+            heart.style.animationDelay = Math.random() * 4 + 's';
+            document.getElementById('hearts-container').appendChild(heart);
+            setTimeout(() => heart.remove(), 14000);
+        }
+
+        for (let i = 0; i < 12; i++) setTimeout(createHeart, i * 250);
+        setInterval(createHeart, 2200);
+
+        // ===== NO Button Evasion =====
+        const noBtn = document.getElementById('noBtn');
+        let moveCount = 0;
+        const isTouchDevice = window.matchMedia('(pointer: coarse)').matches;
+
+        function moveNoButton(e) {
+            if (e) e.preventDefault();
+            
+            const maxMove = isTouchDevice ? 120 : 180;
+            const moveX = (Math.random() - 0.5) * maxMove * 2;
+            const moveY = (Math.random() - 0.5) * maxMove * 2;
+            
+            const currentLeft = parseFloat(noBtn.style.left) || 0;
+            const currentTop = parseFloat(noBtn.style.top) || 0;
+            
+            let newLeft = currentLeft + moveX;
+            let newTop = currentTop + moveY;
+            
+            newLeft = Math.max(-80, Math.min(80, newLeft));
+            newTop = Math.max(-60, Math.min(60, newTop));
+            
+            noBtn.style.left = newLeft + 'px';
+            noBtn.style.top = newTop + 'px';
+            noBtn.style.transform = `rotate(${Math.random() * 16 - 8}deg)`;
+            
+            moveCount++;
+            if (moveCount > 2) noBtn.style.transition = 'all 0.08s ease';
+        }
+
+        if (!isTouchDevice) {
+            document.addEventListener('mousemove', (e) => {
+                const rect = noBtn.getBoundingClientRect();
+                const cx = rect.left + rect.width / 2;
+                const cy = rect.top + rect.height / 2;
+                const dist = Math.hypot(e.clientX - cx, e.clientY - cy);
+                
+                if (dist < 90 && Math.random() > 0.6) moveNoButton();
+            });
+        }
+
+        // ===== Confetti =====
+        function createConfetti() {
+            const colors = ['#f06292', '#ba68c8', '#ffd54f', '#4fc3f7', '#81c784', '#ff8a65', '#ff7043'];
+            const confetti = document.createElement('div');
+            confetti.className = 'confetti';
+            confetti.style.left = Math.random() * 100 + '%';
+            confetti.style.top = '-10px';
+            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            confetti.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+            const size = Math.random() * 8 + 5;
+            confetti.style.width = size + 'px';
+            confetti.style.height = size + 'px';
+            confetti.style.animationDuration = (Math.random() * 1.5 + 2) + 's';
+            document.body.appendChild(confetti);
+            setTimeout(() => confetti.remove(), 4000);
+        }
+
+        // ===== YES Handler =====
+        function handleYes() {
+            for (let i = 0; i < 45; i++) setTimeout(createConfetti, i * 35);
+            setTimeout(() => {
+                document.getElementById('successOverlay').classList.add('active');
+            }, 250);
+        }
+
+        // ===== Navigation =====
+        function hideAllOverlays() {
+            document.querySelectorAll('.success-overlay').forEach(o => o.classList.remove('active'));
+        }
+
+        function showDatePicker() {
+            hideAllOverlays();
+            setTimeout(() => document.getElementById('dateOverlay').classList.add('active'), 300);
+        }
+
+        function showActivityPicker() {
+            const date = document.getElementById('dateInput').value;
+            const time = document.getElementById('timeInput').value;
+            
+            if (!date || !time) {
+                const card = document.querySelector('#dateOverlay .success-card');
+                card.classList.remove('shake');
+                void card.offsetWidth;
+                card.classList.add('shake');
+                return;
+            }
+            
+            hideAllOverlays();
+            setTimeout(() => document.getElementById('activityOverlay').classList.add('active'), 300);
+        }
+
+        let selectedActivity = null;
+        function selectActivity(element, activity) {
+            document.querySelectorAll('.activity-option').forEach(el => el.classList.remove('selected'));
+            element.classList.add('selected');
+            selectedActivity = activity;
+            
+            setTimeout(() => {
+                hideAllOverlays();
+                setTimeout(() => document.getElementById('finalOverlay').classList.add('active'), 300);
+            }, 500);
+        }
+
+        // ===== Photo Upload =====
+        function setupPhotoUpload() {
+            const placeholder = document.getElementById('photoPlaceholder');
+            const img = document.getElementById('profilePhoto');
+            
+            placeholder.addEventListener('click', () => {
+                const input = document.createElement('input');
+                input.type = 'file';
+                input.accept = 'image/*';
+                input.onchange = (e) => {
+                    const file = e.target.files[0];
+                    if (!file) return;
+                    
+                    const reader = new FileReader();
+                    reader.onload = (event) => {
+                        const tempImg = new Image();
+                        tempImg.onload = () => {
+                            const canvas = document.createElement('canvas');
+                            const maxSize = 400;
+                            let w = tempImg.width, h = tempImg.height;
+                            if (w > h && w > maxSize) { h *= maxSize / w; w = maxSize; }
+                            else if (h > maxSize) { w *= maxSize / h; h = maxSize; }
+                            canvas.width = w;
+                            canvas.height = h;
+                            canvas.getContext('2d').drawImage(tempImg, 0, 0, w, h);
+                            img.src = canvas.toDataURL('image/jpeg', 0.85);
+                            img.style.display = 'block';
+                            placeholder.style.display = 'none';
+                        };
+                        tempImg.src = event.target.result;
+                    };
+                    reader.readAsDataURL(file);
+                };
+                input.click();
+            });
+        }
+
+        setupPhotoUpload();
+
+        // Set today's date as minimum
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('dateInput').min = today;
+
+        // ===== Keyboard support =====
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const active = document.querySelector('.success-overlay.active');
+                if (active && active.id !== 'successOverlay' && active.id !== 'finalOverlay') {
+                    hideAllOverlays();
+                }
+            }
+        });
+    </script>
 </body>
 </html>
