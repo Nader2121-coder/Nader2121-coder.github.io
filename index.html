@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Will You Go On A Date With Me?</title>
+    <title>Islem... Will You Go On A Date With Me?</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap');
 
@@ -114,13 +114,33 @@
             transform: scale(0.95);
         }
 
+        .for-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #f06292, #ec407a);
+            color: white;
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: clamp(11px, 2.8vw, 13px);
+            font-weight: 600;
+            margin-bottom: clamp(10px, 2.5vw, 14px);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
         h1 {
             font-family: 'Playfair Display', serif;
             font-size: clamp(22px, 5.5vw, 28px);
             color: #4a148c;
-            margin-bottom: clamp(20px, 5vw, 32px);
+            margin-bottom: clamp(8px, 2vw, 12px);
             line-height: 1.3;
             font-weight: 700;
+        }
+
+        .subtitle {
+            color: #888;
+            font-size: clamp(13px, 3.2vw, 15px);
+            margin-bottom: clamp(20px, 5vw, 32px);
+            font-weight: 500;
         }
 
         .flower {
@@ -390,6 +410,9 @@
                 height: 70px;
             }
             h1 {
+                margin-bottom: 8px;
+            }
+            .subtitle {
                 margin-bottom: 16px;
             }
         }
@@ -433,6 +456,13 @@
             font-weight: 600;
             margin-top: 8px;
         }
+
+        .islem-name {
+            background: linear-gradient(135deg, #f06292, #ec407a);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
     </style>
 </head>
 <body>
@@ -443,13 +473,17 @@
     <!-- Main Card -->
     <div class="card" id="mainCard">
         <div class="photo-container" id="photoContainer">
-            <div class="photo-placeholder" id="photoPlaceholder">🐶</div>
-            <img id="profilePhoto" alt="Profile photo" style="display: none;">
+            <div class="photo-placeholder" id="photoPlaceholder">🥺</div>
+            <img id="profilePhoto" alt="Islem's photo" style="display: none;">
         </div>
+        
+        <div class="for-badge">For Islem 🌸</div>
         
         <h1>
             <span class="flower">🌸</span> Will you go on a date with me? <span class="flower">🌸</span>
         </h1>
+        
+        <p class="subtitle">my sweetie 🥺💗💗💗</p>
         
         <div class="buttons" id="buttonContainer">
             <button class="btn btn-yes" id="yesBtn" onclick="handleYes()">
@@ -468,8 +502,8 @@
     <div class="success-overlay" id="successOverlay">
         <div class="success-card">
             <div class="success-icon">🌊</div>
-            <h2>WAIT YOU ACTUALLY SAID YES??</h2>
-            <p>I was so ready for you to say no 😭</p>
+            <h2>ISLEM YOU ACTUALLY SAID YES??</h2>
+            <p>I was so ready for you to say no 😭<br>you're too sweet 🥺💗</p>
             <button class="btn-okay" onclick="showDatePicker()" style="width: auto;">
                 okay okay! →
             </button>
@@ -480,7 +514,7 @@
     <div class="success-overlay" id="dateOverlay">
         <div class="success-card" style="max-width: 380px;">
             <div style="font-size: clamp(28px, 7vw, 32px); margin-bottom: clamp(10px, 2vw, 16px);">📅🐾</div>
-            <h2 style="font-size: clamp(20px, 5vw, 24px);">So... when are you free?</h2>
+            <h2 style="font-size: clamp(20px, 5vw, 24px);">So Islem... when are you free?</h2>
             
             <div class="form-group">
                 <label>Pick a Day 📅</label>
@@ -508,7 +542,7 @@
     <!-- Activity Picker -->
     <div class="success-overlay" id="activityOverlay">
         <div class="success-card" style="max-width: 400px;">
-            <h2 style="font-size: clamp(20px, 5vw, 24px);">What are we doing? ✨</h2>
+            <h2 style="font-size: clamp(20px, 5vw, 24px);">What are we doing, Islem? ✨</h2>
             <p style="color: #888; font-size: clamp(12px, 3vw, 14px);">pick your vibe</p>
             
             <div class="activity-grid">
@@ -548,7 +582,7 @@
     <div class="success-overlay" id="finalOverlay">
         <div class="success-card">
             <h2 style="font-size: clamp(18px, 4.5vw, 22px); line-height: 1.4;">
-                glad you didn't say no. be ready by 6, I'm coming to get you 🚗
+                glad you didn't say no, <span class="islem-name">Islem</span>. be ready by 6, I'm coming to get you 🚗
             </h2>
             <p class="final-ps">
                 P.S. normal people text. I made a website on Replit, during lunch, for you.<br>no big deal.
@@ -565,7 +599,7 @@
         function createHeart() {
             const heart = document.createElement('div');
             heart.className = 'heart';
-            const hearts = ['🌸', '💖', '💕', '💗', '♥', '🌺', '✨'];
+            const hearts = ['🌸', '💖', '💕', '💗', '♥', '🌺', '✨', '🥺'];
             heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
             heart.style.left = Math.random() * 100 + '%';
             heart.style.fontSize = (Math.random() * 16 + 14) + 'px';
